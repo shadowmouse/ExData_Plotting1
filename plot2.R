@@ -1,27 +1,41 @@
+## plot2.R
+## Author : Elliot Francis
+## Created : 2017-2-9
+## Create Global Power Activity Line Plot
+
+# Load Support Libraries
 library(readr)
 library(dplyr)
 library(lubridate)
 print("Loading Dataset")
+
+#Specify Column Defintions
 columnDfns = list(col_character(), col_character(), col_double(), col_double(), col_double(), col_double(), col_double(), col_double(), col_double())
 
-# Data Caching
+# Data Loading/Caching
 if(!exists('household_source_data')) {
   print("Source Data Not Loaded. Loading...")
   household_source_data <- read_delim("./household_power_consumption.txt", ";", col_types = columnDfns)  
 } else {
   print("Source Data Loaded from Previous Run. Using Loaded Data...")
 }
+
+#Get Target Data Range
 print("Filtering for Target Date Range")
 target_source_data <- filter(household_source_data, Date == '1/2/2007'  | Date == '2/2/2007')
+
+# Convert Date/Time Columns -- Add Datetime Column
 print("Converting Date and Time Columns")
 target_source_data$DateTime <- dmy_hms(paste(target_source_data$Date," ",target_source_data$Time))
 target_source_data$Date <- dmy(target_source_data$Date)
 target_source_data$Time <- hms(target_source_data$Time)
-print("Plotting Data")
+
+#Plot Configuration Varaibles
 xlabel <- ""
 ylabel <- "Global Active Power (kilowatts)"
 graphTitle <- list("Global Active Power")
-graphColor <- "red"
+
+#Plot Data and Save File
 png("plot2.png", bg="transparent")
 par(mar=c(4,4,4,4))
 plot(type="l", target_source_data$DateTime, target_source_data$Global_active_power,  xlab = xlabel, ylab = ylabel)
