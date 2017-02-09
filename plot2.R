@@ -23,6 +23,7 @@ ylabel <- "Global Active Power (kilowatts)"
 graphTitle <- list("Global Active Power")
 graphColor <- "red"
 png("plot2.png", bg="transparent")
+par(mar=c(4,4,4,4))
 plot(type="l", target_source_data$DateTime, target_source_data$Global_active_power,  xlab = xlabel, ylab = ylabel)
 title(font.main = 2)
 dev.off()

@@ -23,6 +23,7 @@ ylabel <- "Energy sub metering"
 plotColors <- c("black", "red", "blue")
 yData <- data.frame(target_source_data$Sub_metering_1, target_source_data$Sub_metering_2, target_source_data$Sub_metering_3)
 png("plot3.png", bg="transparent")
+par(mar=c(4,4,4,4))
 matplot(type="l", target_source_data$DateTime, yData,  xlab = xlabel, ylab = ylabel, col = plotColors, lty = 1, xaxt="n")
 legend("topright", legend = c("Sub_metering_1","Sub_metering_2","Sub_metering_3"), col = plotColors, lty = 1)
 axis.POSIXct(1, at=seq(min(target_source_data$DateTime), max(target_source_data$DateTime) + 1000, by="days"), format="%a")

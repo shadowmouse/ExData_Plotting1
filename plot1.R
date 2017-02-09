@@ -23,6 +23,7 @@ graphTitle <- list("Global Active Power")
 graphColor <- "red"
 ylimits <- c(0, 1200)
 png("plot1.png", bg="transparent")
+par(mar=c(4,4,4,4))
 hist(target_source_data$Global_active_power, xlab = xlabel, ylab = ylabel, main = graphTitle, col = graphColor, ylim = ylimits)
 title(font.main = 2)
 dev.off()
